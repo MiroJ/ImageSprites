@@ -9,4 +9,5 @@ export interface ISpriteSettings {
     path_prefix: string;
     output: string;
     enable_cache_busting: boolean;
+    output_image_file: string;
 }

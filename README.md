@@ -53,7 +53,7 @@ The configuration file contains settings for the specific image sprite. It uses 
    "path_prefix": "",
    "output": "png",
    "enable_cache_busting": true,
-   "output_image_file": "..\\images\\sprites\\avatar.sprite.png",
+   "output_image_file": "..\\images\\sprites\\assets.sprite.png",
 }
 ```
 
@@ -85,10 +85,13 @@ You can update an already-created sprite by:
 
 ![Update Image Sprite](https://github.com/gurayyarar/ImageSprites/raw/master/images/docs/update-sprite.gif)
 
+## Change log
+
+For details on changes and versions, check [CHANGELOG.md](./CHANGELOG.md)
+
 ## License
 
 **Image Sprites** is an open source project that is licensed under the [MIT license](http://opensource.org/licenses/MIT).
-
 
 ## Donations
 

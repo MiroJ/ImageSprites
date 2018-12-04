@@ -6,4 +6,5 @@ export interface IOption {
     custom_styles: any;
     path_prefix: string;
     enable_cache_busting: boolean;
+    output_image_file: string;
 }

@@ -13,6 +13,7 @@ export class Options {
         let customStyles: any = configValues.get("custom_styles") as any;
         let pathPrefix: string = configValues.get("path_prefix") as string;
         let enableCacheBusting: boolean = configValues.get("enable_cache_busting") as boolean;
+        let outputImageFile: string = configValues.get("output_image_file") as string;
 
         output = output === undefined ? "png" : output;
         pathPrefix = pathPrefix === undefined ? "" : pathPrefix;
@@ -21,6 +22,7 @@ export class Options {
         stylesheet = stylesheet === undefined ? "css" : stylesheet;
         orientation = orientation === undefined ? "vertical" : orientation;
         customStyles = customStyles === undefined ? { "display": "inline-block" } : customStyles;
+        outputImageFile = outputImageFile === undefined ? "" : outputImageFile;
 
         return {
             custom_styles: customStyles,
@@ -29,7 +31,8 @@ export class Options {
             stylesheet: stylesheet,
             path_prefix: pathPrefix,
             output: output,
-            enable_cache_busting: enableCacheBusting
+            enable_cache_busting: enableCacheBusting,
+            output_image_file: outputImageFile
         };
     }
 

@@ -16,7 +16,8 @@ export class FileHelpers {
             stylesheet: Options.getOptions().stylesheet,
             path_prefix: Options.getOptions().path_prefix,
             output: Options.getOptions().output,
-            enable_cache_busting: Options.getOptions().enable_cache_busting
+            enable_cache_busting: Options.getOptions().enable_cache_busting,
+            output_image_file: Options.getOptions().output_image_file
         };
 
         if (type === RightClickType.Folder) {

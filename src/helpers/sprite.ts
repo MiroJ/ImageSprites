@@ -50,7 +50,7 @@ export class SpriteHelpers {
                         const styleStr: string = new StyleGeneratorHelpers(styleItem).getStyleText();
 
                         new FileHelpers().writeStyle(styleFileName, styleStr, () => {
-                            const imageFileName: string = path.join(folder, `${styleName}.sprite.${Options.getOptions().output}`);
+                            const imageFileName: string = Options.getOptions().output_image_file ? Options.getOptions().output_image_file : path.join(folder, `${styleName}.sprite.${Options.getOptions().output}`);
                             const spriteImageSize: number[] = new SpriteHelpers().getSpriteImageSize(images, Options.getOptions());
 
                             new ImageHelpers().drawSpriteImage(images, spriteImageSize, imageFileName, Options.getOptions(), () => {
@@ -94,7 +94,14 @@ export class SpriteHelpers {
                 const styleStr: string = new StyleGeneratorHelpers(styleItem).getStyleText();
 
                 new FileHelpers().writeStyle(styleFileName, styleStr, () => {
-                    const imageFileName: string = path.join(folderPath, `${options.style_name}.sprite.${options.output}`);
+                    console.log("options.output_image_file", options.output_image_file);
+
+                    const imageFileName: string = options.output_image_file ? path.join(folderPath, options.output_image_file) : path.join(folderPath, `${options.style_name}.sprite.${options.output}`);
+
+
+                    console.log("imageFileName", imageFileName);
+
+
                     const spriteImageSize: number[] = new SpriteHelpers().getSpriteImageSize(images, options);
 
                     new ImageHelpers().drawSpriteImage(images, spriteImageSize, imageFileName, options, () => {
