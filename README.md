@@ -2,11 +2,11 @@
 An image sprite is a collection of images stored in a single image. A web page with many images can take a long time to load and generates multiple server requests. Using image sprites will reduce the file size and the number of server requests, thus save bandwidth.
 
 ## Features
-- Easy to create and update image sprites
-- Support for png, jpg, and bmp images
-- Configurable vertical or horizontal sprite layouts
-- Produce LESS, Sass or CSS file with sprite image locations
-- Configurable settings for each sprite file
+- [x] Easy to create and update image sprites
+- [x] Support for png, jpg, and bmp images
+- [x] Configurable vertical or horizontal sprite layouts
+- [x] Produce LESS, Sass or CSS file with sprite image locations
+- [x] Configurable settings for each sprite file
 
 ## Creating Image Sprites
 

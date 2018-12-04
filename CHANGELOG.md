@@ -10,3 +10,8 @@ in this project.
 ## 1.0.0 - July 7, 2018
 
 - [x] Initial Release
+  - [x] Easy to create and update image sprites
+  - [x] Support for png, jpg, and bmp images
+  - [x] Configurable vertical or horizontal sprite layouts
+  - [x] Produce LESS, Sass or CSS file with sprite image locations
+  - [x] Configurable settings for each sprite file
