@@ -2,7 +2,7 @@
     "name": "imagesprites",
     "displayName": "Image Sprites",
     "description": "Improve your website's performance by create image sprites to reduce the file size and the number of server requests.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "publisher": "gurayyarar",
     "icon": "images/icon.png",
     "license": "MIT",

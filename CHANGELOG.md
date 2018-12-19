@@ -3,6 +3,9 @@
 These are the changes to each version that has been released
 in this project.
 
+## 1.1.1 - December 19, 2018
+- [x] Added error handling for folder selection
+
 ## 1.1.0 - December 4, 2018
 
 - [x] Added setting for relative file path to the sprite image output file
