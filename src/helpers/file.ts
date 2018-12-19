@@ -27,7 +27,7 @@ export class FileHelpers {
             fileVals.images = items;
             delete fileVals.folder;
         }
-        console.log(fileVals);
+        
         fs.writeFile(path, JSON.stringify(fileVals, null, 3), (err: any) => {
             if (err) {
                 StringUtils.writeErrorMsg(err, "The configuration file couldn't save!");

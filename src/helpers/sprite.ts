@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import * as fs from "fs";
-import * as path from "path";
-import { IImage } from "../interfaces/image";
-import { Options } from "../utils/options";
+import * as fs from 'fs';
+import * as path from 'path';
+import { IImage } from '../interfaces/image';
+import { Options } from '../utils/options';
 import { ImageHelpers } from './image';
 import { FileHelpers } from './file';
 import { Orientation, RightClickType } from '../utils/enum';
@@ -14,20 +14,25 @@ import { IOption } from '../interfaces/option';
 
 export class SpriteHelpers {
     startImageSprite(imagesOrFolderPath: any, callback: any): void {
-        const rightClickType: RightClickType = typeof imagesOrFolderPath === "string" ? RightClickType.Folder : RightClickType.File;
+        const rightClickType: RightClickType = typeof imagesOrFolderPath === 'string' ? RightClickType.Folder : RightClickType.File;
 
         new ImageHelpers().getImagesDetailInfo(imagesOrFolderPath, (images: IImage[]) => {
             if (images.length === 0) {
                 vscode.window.showErrorMessage("The folder doesn't have any image for sprite!");
             } else {
                 let saveDialogOptions: vscode.SaveDialogOptions = {
-                    filters: { "Sprite Files": ["sprite"] },
-                    defaultUri: vscode.Uri.file(rightClickType === RightClickType.Folder ? imagesOrFolderPath : path.dirname(imagesOrFolderPath[0]))
+                    filters: { 'Sprite Files': ['sprite'] },
+                    defaultUri: vscode.Uri.file(
+                        rightClickType === RightClickType.Folder ? imagesOrFolderPath : path.dirname(imagesOrFolderPath[0])
+                    ),
                 };
 
-                vscode.window.showSaveDialog(saveDialogOptions).then((file: any) => {
+                vscode.window.showSaveDialog(saveDialogOptions).then((uri: any) => {
+                    if (!uri) {
+                        return;
+                    }
                     let relativePath: any;
-                    const fileFsPath: string = vscode.Uri.parse(file).fsPath;
+                    const fileFsPath: string = uri.fsPath;
                     const folder: string = path.dirname(fileFsPath);
                     const styleName: string = path.basename(fileFsPath, path.extname(fileFsPath));
 
@@ -45,12 +50,14 @@ export class SpriteHelpers {
                         const styleItem: IStyleGeneratorItem = {
                             sprite_image: styleName,
                             items: images,
-                            options: Options.getOptions()
+                            options: Options.getOptions(),
                         };
                         const styleStr: string = new StyleGeneratorHelpers(styleItem).getStyleText();
 
                         new FileHelpers().writeStyle(styleFileName, styleStr, () => {
-                            const imageFileName: string = Options.getOptions().output_image_file ? Options.getOptions().output_image_file : path.join(folder, `${styleName}.sprite.${Options.getOptions().output}`);
+                            const imageFileName: string = Options.getOptions().output_image_file
+                                ? Options.getOptions().output_image_file
+                                : path.join(folder, `${styleName}.sprite.${Options.getOptions().output}`);
                             const spriteImageSize: number[] = new SpriteHelpers().getSpriteImageSize(images, Options.getOptions());
 
                             new ImageHelpers().drawSpriteImage(images, spriteImageSize, imageFileName, Options.getOptions(), () => {
@@ -64,7 +71,7 @@ export class SpriteHelpers {
     }
 
     updateImageSprite(spriteFilePath: string, callback: any): void {
-        fs.readFile(spriteFilePath, "utf8", (err: any, data: any) => {
+        fs.readFile(spriteFilePath, 'utf8', (err: any, data: any) => {
             if (err) {
                 StringUtils.writeErrorMsg(err, "The sprite configuration file couldn't read!");
                 throw err;
@@ -87,20 +94,16 @@ export class SpriteHelpers {
                 const styleItem: IStyleGeneratorItem = {
                     sprite_image: options.style_name,
                     items: images,
-                    options: options
+                    options: options,
                 };
 
                 const styleFileName: string = path.join(folderPath, `${options.style_name}.sprite.${options.stylesheet}`);
                 const styleStr: string = new StyleGeneratorHelpers(styleItem).getStyleText();
 
                 new FileHelpers().writeStyle(styleFileName, styleStr, () => {
-                    console.log("options.output_image_file", options.output_image_file);
-
-                    const imageFileName: string = options.output_image_file ? path.join(folderPath, options.output_image_file) : path.join(folderPath, `${options.style_name}.sprite.${options.output}`);
-
-
-                    console.log("imageFileName", imageFileName);
-
+                    const imageFileName: string = options.output_image_file
+                        ? path.join(folderPath, options.output_image_file)
+                        : path.join(folderPath, `${options.style_name}.sprite.${options.output}`);
 
                     const spriteImageSize: number[] = new SpriteHelpers().getSpriteImageSize(images, options);
 
@@ -119,14 +122,32 @@ export class SpriteHelpers {
         let resultArray: number[] = [];
 
         if (options.orientation === Orientation.Vertical) {
-            width = Math.max.apply(Math, images.map((item: IImage) => { return item.width; })) + (padding * 2);
+            width =
+                Math.max.apply(
+                    Math,
+                    images.map((item: IImage) => {
+                        return item.width;
+                    })
+                ) +
+                padding * 2;
 
-            images.forEach((item: IImage) => { height += item.height; });
+            images.forEach((item: IImage) => {
+                height += item.height;
+            });
             height += (images.length + 1) * padding;
         } else {
-            height = Math.max.apply(Math, images.map((item: IImage) => { return item.height; })) + (padding * 2);
+            height =
+                Math.max.apply(
+                    Math,
+                    images.map((item: IImage) => {
+                        return item.height;
+                    })
+                ) +
+                padding * 2;
 
-            images.forEach((item: IImage) => { width += item.width; });
+            images.forEach((item: IImage) => {
+                width += item.width;
+            });
             width += (images.length + 1) * padding;
         }
 
