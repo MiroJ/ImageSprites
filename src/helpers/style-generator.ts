@@ -2,7 +2,6 @@ import * as path from "path";
 import { IStyleGeneratorItem } from "../interfaces/style-generator";
 import { IImage } from "../interfaces/image";
 import { Orientation, Stylesheet } from "../utils/enum";
-import { Options } from "../utils/options";
 import { StringUtils } from "../utils/string";
 
 export class StyleGeneratorHelpers {
@@ -30,10 +29,16 @@ export class StyleGeneratorHelpers {
         // Background Image
         this.resultText += `.${this.styleItem.sprite_image} {\n`;
         this.resultText += "\tbackground-image: url('";
-        if (this.styleItem.options.path_prefix !== "" && this.styleItem.options.path_prefix !== null) {
-            this.resultText += this.styleItem.options.path_prefix;
+
+        if (this.styleItem.options.output_image_file !== "" && this.styleItem.options.output_image_file !== null) {
+            this.resultText += this.styleItem.options.output_image_file;
+        } else {
+            if (this.styleItem.options.path_prefix !== "" && this.styleItem.options.path_prefix !== null) {
+                this.resultText += this.styleItem.options.path_prefix;
+            }
+            this.resultText += `${this.styleItem.sprite_image}.sprite.${this.styleItem.options.output}`;
         }
-        this.resultText += `${this.styleItem.sprite_image}.sprite.${Options.getOptions().output}`;
+
         if (this.styleItem.options.enable_cache_busting) {
             this.resultText += `?v=${new StringUtils().getCacheBustingKey()}`;
         }
@@ -74,10 +79,16 @@ export class StyleGeneratorHelpers {
         // Background Image
         this.resultText += `.${this.styleItem.sprite_image} {\n`;
         this.resultText += "\tbackground-image: url('";
-        if (this.styleItem.options.path_prefix !== "" && this.styleItem.options.path_prefix !== null) {
-            this.resultText += this.styleItem.options.path_prefix;
+
+        if (this.styleItem.options.output_image_file !== "" && this.styleItem.options.output_image_file !== null) {
+            this.resultText += this.styleItem.options.output_image_file;
+        } else {
+            if (this.styleItem.options.path_prefix !== "" && this.styleItem.options.path_prefix !== null) {
+                this.resultText += this.styleItem.options.path_prefix;
+            }
+            this.resultText += `${this.styleItem.sprite_image}.sprite.${this.styleItem.options.output}`;
         }
-        this.resultText += `${this.styleItem.sprite_image}.sprite.${Options.getOptions().output}`;
+
         if (this.styleItem.options.enable_cache_busting) {
             this.resultText += `?v=${new StringUtils().getCacheBustingKey()}`;
         }
